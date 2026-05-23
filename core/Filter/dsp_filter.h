@@ -24,7 +24,7 @@ extern "C" {
 /* Typedefs ------------------------------------------------------------------*/
 
 /**
- * @brief  Configuration and data for a FIR low-pass / high-pass filter.
+ * @brief  Configuration and data for a FIR low-pass / high-pass / band-pass filter.
  *
  * The caller must allocate all arrays before calling the filter function:
  *   - input       : input signal array           (input_len elements)
@@ -39,6 +39,7 @@ typedef struct dsp_filter_s
     int     input_len;   /**< Number of samples in the input signal            */
     int     kernel_len;  /**< Number of taps in the filter kernel (must be odd)*/
     double  fc;          /**< Normalised cutoff frequency (0.0 – 0.5)          */
+    double  fc_high;     /**< Upper normalised cutoff for BPF (0.0 – 0.5)      */
 } dsp_filter_t;
 
 /**
@@ -109,6 +110,19 @@ void dsp_LPF(dsp_filter_t *cfg);
  * @param  cfg  Pointer to a fully initialised dsp_filter_t.
  */
 void dsp_HPF(dsp_filter_t *cfg);
+
+/**
+ * @brief  Apply a windowed-sinc FIR band-pass filter.
+ *
+ * Builds two LPF kernels (at fc_high and fc), subtracts them to form a
+ * band-pass kernel, then convolves it with cfg->input.
+ * Uses the first kernel_len elements of cfg->output as scratch space
+ * (overwritten by the convolution afterwards).
+ *
+ * @param  cfg  Pointer to a fully initialised dsp_filter_t with both
+ *              fc (lower cutoff) and fc_high (upper cutoff) set.
+ */
+void dsp_BPF(dsp_filter_t *cfg);
 
 /**
  * @brief  Initialise a 1st-order IIR filter.
