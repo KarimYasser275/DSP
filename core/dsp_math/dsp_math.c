@@ -10,7 +10,7 @@
 #include "dsp_math.h"
 #include <math.h>
 /* Private Macros ------------------------------------------------------------*/
-#define PI 3.14159265358979f
+
 /* Private Enums -------------------------------------------------------------*/
 
 /* Private Typedefs ----------------------------------------------------------*/
@@ -29,18 +29,19 @@
  *         mag[i]   = sqrt(re[i]^2 + im[i]^2)
  *         phase[i] = atan2(im[i], re[i])
  *
- * @param[in,out] signal  Pointer to a dsp_cartPolar_t struct where:
- *                        - signal->re    (input)  real part array
- *                        - signal->im    (input)  imaginary part array
- *                        - signal->mag   (output) magnitude array
- *                        - signal->phase (output) phase angle array (radians)
- *                        - signal->size  number of elements
+ * @param[in,out] ip_signal  Pointer to a dsp_cartPolar_t struct where:
+ *                        - ip_signal->re    (input)  real part array
+ *                        - ip_signal->im    (input)  imaginary part array
+ *                        - ip_signal->mag   (output) magnitude array
+ *                        - ip_signal->phase (output) phase angle array
+ * (radians)
+ *                        - ip_signal->size  number of elements
  */
-void dsp_cart2Polar(dsp_cartPolar_t *signal) {
-  for (int i = 0; i < signal->size; i++) {
-    signal->mag[i] =
-        sqrt((signal->re[i] * signal->re[i]) + (signal->im[i] * signal->im[i]));
-    signal->phase[i] = atan2(signal->im[i], signal->re[i]);
+void dsp_cart2Polar(dsp_cartPolar_t *ip_signal) {
+  for (int i = 0; i < ip_signal->size; i++) {
+    ip_signal->mag[i] = sqrt((ip_signal->re[i] * ip_signal->re[i]) +
+                             (ip_signal->im[i] * ip_signal->im[i]));
+    ip_signal->phase[i] = atan2(ip_signal->im[i], ip_signal->re[i]);
   }
 }
 
@@ -50,17 +51,18 @@ void dsp_cart2Polar(dsp_cartPolar_t *signal) {
  *         re[i] = mag[i] * cos(phase[i])
  *         im[i] = mag[i] * sin(phase[i])
  *
- * @param[in,out] signal  Pointer to a dsp_cartPolar_t struct where:
- *                        - signal->mag   (input)  magnitude array
- *                        - signal->phase (input)  phase angle array (radians)
- *                        - signal->re    (output) real part array
- *                        - signal->im    (output) imaginary part array
- *                        - signal->size  number of elements
+ * @param[in,out] ip_signal  Pointer to a dsp_cartPolar_t struct where:
+ *                        - ip_signal->mag   (input)  magnitude array
+ *                        - ip_signal->phase (input)  phase angle array
+ * (radians)
+ *                        - ip_signal->re    (output) real part array
+ *                        - ip_signal->im    (output) imaginary part array
+ *                        - ip_signal->size  number of elements
  */
-void dsp_polar2Cart(dsp_cartPolar_t *signal) {
-  for (int i = 0; i < signal->size; i++) {
-    signal->re[i] = signal->mag[i] * cos(signal->phase[i]);
-    signal->im[i] = signal->mag[i] * sin(signal->phase[i]);
+void dsp_polar2Cart(dsp_cartPolar_t *ip_signal) {
+  for (int i = 0; i < ip_signal->size; i++) {
+    ip_signal->re[i] = ip_signal->mag[i] * cos(ip_signal->phase[i]);
+    ip_signal->im[i] = ip_signal->mag[i] * sin(ip_signal->phase[i]);
   }
 }
 

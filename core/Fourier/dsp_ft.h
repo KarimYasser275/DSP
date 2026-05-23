@@ -30,18 +30,27 @@ extern "C" {
  * @param  param_name Description of parameter
  * @return Description of return value
  */
-void dsp_dft_calc(dsp_FTsignal_t *signal);
+void dsp_dft_calc(dsp_FTsignal_t *ip_signal);
 
 /**
  * @brief  Computes the Inverse Discrete Fourier Transform (IDFT).
- * @param  signal  Pointer to a dsp_FTsignal_t struct where:
- *                 - signal->re     is the input real part      (length = size)
- *                 - signal->im     is the input imaginary part (length = size)
- *                 - signal->signal is the output time-domain array (length =
+ * @param  ip_signal  Pointer to a dsp_FTsignal_t struct where:
+ *                 - ip_signal->re     is the input real part      (length =
  * size)
- *                 - signal->size   is N, the number of samples
+ *                 - ip_signal->im     is the input imaginary part (length =
+ * size)
+ *                 - ip_signal->src_signal_re is the output time-domain array
+ * (length = size)
+ *                 - ip_signal->size   is N, the number of samples
  */
-void dsp_idft_calc(dsp_FTsignal_t *signal);
+void dsp_idft_calc(dsp_FTsignal_t *ip_signal);
+
+/**
+ * @brief  Computes the FFT using the radix-2 Cooley-Tukey algorithm.
+ * @note   ip_signal->size MUST be a power of 2.
+ * @param  ip_signal  Pointer to a dsp_FTsignal_t struct (same layout as DFT)
+ */
+void dsp_fft_calc(dsp_FTsignal_t *ip_signal);
 
 #ifdef __cplusplus
 }

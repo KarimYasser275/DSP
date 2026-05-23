@@ -18,11 +18,16 @@ extern "C" {
 #include <stdint.h>
 
 /* Macros --------------------------------------------------------------------*/
+#define PI 3.14159265358979f
+#ifndef NULL
+#define NULL (void *)0
+#endif
 /* Enums ---------------------------------------------------------------------*/
 /* Typedefs ------------------------------------------------------------------*/
 /* Structs -------------------------------------------------------------------*/
 typedef struct dsp_FTsignal_s {
-  double *signal;
+  double *src_signal_re;
+  double *src_signal_im;
   double *re;
   double *im;
   int size;

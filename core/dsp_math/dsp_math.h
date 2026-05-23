@@ -27,17 +27,17 @@ extern "C" {
 
 /**
  * @brief  Converts Cartesian (rectangular) coordinates to polar form.
- * @param[in,out] signal  Pointer to dsp_cartPolar_t with re/im as input,
+ * @param[in,out] ip_signal  Pointer to dsp_cartPolar_t with re/im as input,
  *                        mag/phase as output.
  */
-void dsp_cart2Polar(dsp_cartPolar_t *signal);
+void dsp_cart2Polar(dsp_cartPolar_t *ip_signal);
 
 /**
  * @brief  Converts polar coordinates to Cartesian (rectangular) form.
- * @param[in,out] signal  Pointer to dsp_cartPolar_t with mag/phase as input,
+ * @param[in,out] ip_signal  Pointer to dsp_cartPolar_t with mag/phase as input,
  *                        re/im as output.
  */
-void dsp_polar2Cart(dsp_cartPolar_t *signal);
+void dsp_polar2Cart(dsp_cartPolar_t *ip_signal);
 
 #ifdef __cplusplus
 }
